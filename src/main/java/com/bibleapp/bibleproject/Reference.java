@@ -5,7 +5,6 @@ public class Reference {
 	private String chapter;
 	private String verse;
 	
-	
 	public String getBook() {
 		return book;
 	}
@@ -26,6 +25,12 @@ public class Reference {
 	}
 	@Override
 	public String toString() {
-		return "Reference [book=" + book + ", chapter=" + chapter + ", verse=" + verse + "]";
+		return book + " " + chapter + ":" + verse;
+	}
+	public Reference(String book, String chapter, String verse) {
+		super();
+		this.book = book;
+		this.chapter = chapter;
+		this.verse = verse;
 	}
 }

@@ -86,7 +86,7 @@ public class ReadJson {
 	                    JsonNode twoDArray = jsonArrayNode.get("chapters");
 	                    int chapter = Integer.parseInt(args[1]) - 1;
 	                    int verse = Integer.parseInt(args[2]) - 1;
-	                    System.out.println("JSON Object:"+ twoDArray.get(chapter).get(verse));
+//	                    System.out.println("JSON Object:"+ twoDArray.get(chapter).get(verse));
 	                    finalVerse = twoDArray.get(chapter).get(verse).toPrettyString();
 	                    break;
 	                }
@@ -95,7 +95,7 @@ public class ReadJson {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-	    	System.out.println(finalVerse);
+//	    	System.out.println(finalVerse);
 	    	return finalVerse;
 	    }
 }

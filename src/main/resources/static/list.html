@@ -33,7 +33,21 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById('result').innerHTML = `<strong>Result:</strong> ${JSON.stringify(data)}`;
+				document.getElementById('result').innerHTML = ``;
+				var container = document.getElementById('result');
+                //document.getElementById('result').innerHTML = `<strong>Result:</strong> ${JSON.stringify(data)}`;
+                  // Iterate over each object in the array
+				  data.forEach(function(verseObj) {
+				    // Iterate over the properties of each object (assuming only one property per object)
+				    for (var verseRef in verseObj) {
+				      // Create a new paragraph element to hold the verse text
+				      var paragraph = document.createElement('p');
+				      // Set the text content of the paragraph to the verse text
+				      paragraph.textContent = verseRef + ": " + verseObj[verseRef];
+				      // Append the paragraph to the container
+				      container.appendChild(paragraph);
+				    }
+  });
             })
             .catch(error => {
                 console.error('Error:', error);
