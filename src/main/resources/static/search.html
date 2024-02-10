@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verse Retrieval Form</title>
+</head>
+<nav>
+	<a href="search.html">Search</a>
+	<a href="add.html">Add Verses</a>
+	<a href="list.html">List</a>
+</nav>
+<body>
+
+<h1>Verse Search Form</h1>
+
+<form id="verseForm">
+    <label for="book">Book:</label>
+    <input type="text" id="book" name="book" required>
+    <br>
+
+    <label for="chapter">Chapter:</label>
+    <input type="text" id="chapter" name="chapter" required>
+    <br>
+
+    <label for="verse">Verse:</label>
+    <input type="text" id="verse" name="verse" required>
+    <br>
+
+    <button type="button" onclick="getVerse()">Get Verse</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    function getVerse() {
+        const book = document.getElementById('book').value;
+        const chapter = document.getElementById('chapter').value;
+        const verse = document.getElementById('verse').value;
+
+        const apiUrl = `http://localhost:8080/get-verse/${encodeURIComponent(book)}/${encodeURIComponent(chapter)}/${encodeURIComponent(verse)}`;
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('result').innerHTML = `<strong>Result:</strong> ${JSON.stringify(data)}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = '<strong>Error:</strong> Failed to retrieve verse.';
+            });
+    }
+</script>
+
+</body>
+</html>
