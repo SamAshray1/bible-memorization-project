@@ -1,7 +1,9 @@
 package com.bibleapp.bibleproject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,7 @@ public class Controller {
 	}
 	
 	private List<Reference> referenceList = new ArrayList<>();
+//	Set<Reference> referenceList = new HashSet<>();
 	
 	@GetMapping("/hello")
 	public String helloWorld() {
@@ -74,12 +77,26 @@ public class Controller {
 		}
 	
 	@PostMapping(path="/add-verse")
-	public String getVerseWithBCV( Reference reference) {
+	public ResponseEntity getVerseWithBCV( @RequestBody Reference reference) {
 		
-		referenceList.add(reference);
-		System.out.println(referenceList.toString());
-		
-		return "success";
+		boolean found = false;
+		for (Reference item : referenceList) {
+		    if ((item.getBook().equals(reference.getBook())) && 
+		    		(item.getChapter().equals(reference.getChapter())) && 
+		    		(item.getVerse().equals(reference.getVerse()))) {
+		    	System.out.print("dupe");
+		        found = true;
+		        break;
+		    }
+		}
+
+		if (!found) {
+		    referenceList.add(reference);
+		    return new ResponseEntity<>("Added Verse", HttpStatus.CREATED);
+		}
+		else {
+			return new ResponseEntity<>("Verse already exists!", HttpStatus.CONFLICT);
+		}
 		}
 	
 	@GetMapping(path="/get-verse-list")
@@ -87,8 +104,9 @@ public class Controller {
 	public String getVerseWithBCV() {
 		String response = "";
 		
+		if(referenceList.size() == 0 ) {
 		Reference defRef = new Reference("John", "1", "1");
-		referenceList.add(defRef);
+		referenceList.add(defRef);}
 		
 		response += "[";
 		for(int i=0 ; i<referenceList.size() ; i++) {
