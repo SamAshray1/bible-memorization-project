@@ -1,6 +1,16 @@
 package com.bibleapp.bibleproject;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Reference {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
 	private String book;
 	private String chapter;
 	private String verse;
@@ -32,5 +42,8 @@ public class Reference {
 		this.book = book;
 		this.chapter = chapter;
 		this.verse = verse;
+	}
+	public Reference() {
+		// TODO Auto-generated constructor stub
 	}
 }
