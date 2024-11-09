@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReadJson {
     // Specify the path to your JSON file
-//    public static String filePath = "src/main/resources/static/en_kjv.json";
-    public static String filePath = "/app/en_kjv.json";
+    public static String filePath = "src/main/resources/static/en_kjv.json";
+//    public static String filePath = "/app/en_kjv.json";
     
 
 	    public static String main(String[] args) {

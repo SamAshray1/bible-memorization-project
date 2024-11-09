@@ -21,9 +21,7 @@ public class ControllerNew {
 	
 	@Autowired
 	private ReadJson readjson;
-	
-	@Autowired
-	private EmailService emailService;
+
 	
 	@PostMapping(path = "/add-verse")
 	public ResponseEntity<String> addVerse(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Reference reference) {
@@ -46,8 +44,6 @@ public class ControllerNew {
         	return ResponseEntity.status(HttpStatus.CONFLICT).body("{\"message\": \"Reference already exists.\"}");
         }else {
         	referenceList.add(reference);
-        	emailService.sendEmail("New reference added", "A new reference has been added: " 
-        	+ reference.toString() +"\n\n" + referenceList.toString());
         	
         	return ResponseEntity.ok("{\"message\": \" Reference added successfully.\" }");
         }
@@ -134,8 +130,7 @@ public class ControllerNew {
 		if(newReferences.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicates found");
         }else {
-        	emailService.sendEmail("New reference added", "A new reference has been added: " + newReferences.toString());
-        	 return ResponseEntity.ok("References added successfully!" + newReferences.toString());
+        	return ResponseEntity.ok("References added successfully!" + newReferences.toString());
         }
 		
         
