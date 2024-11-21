@@ -3,6 +3,8 @@ package com.bibleapp.bibleproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/references")
 public class ControllerNew {
+	Logger logger = LoggerFactory.getLogger(ControllerNew.class);
 	
 	private List<Reference> referenceList = new ArrayList<>();
 	
@@ -75,9 +78,8 @@ public class ControllerNew {
 	@GetMapping(path="/get-verse-list")
 //	public List<Reference> getVerseWithBCV() {
 	public String getVerseWithBCV() {
-//		referenceList = (List<Reference>) referenceRepository.findAll();
-//		System.out.println(referenceList);
-		
+		logger.info("ControllerNew.getVerseWithBCV() - Started");
+
 		String response = "[";
 		for(int i=0 ; i<referenceList.size() ; i++) {
 			Reference listItem = referenceList.get(i);
@@ -97,12 +99,15 @@ public class ControllerNew {
 		response += "]";
 		
 		System.out.println(response);
+
+		logger.info("ControllerNew.getVerseWithBCV() - End");
 		return response;
 	}
 
 	@PostMapping("/add-multiple")
 	public ResponseEntity<String> addMultipleReferences(@RequestHeader("Authorization") String authorizationHeader, @RequestBody List<Reference> references){
-		
+		logger.info("ControllerNew.addMultipleReferences() - Started {}", references);
+
 		// Check if the authorization header is present
 		if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Missing or invalid authorization header");
@@ -126,13 +131,14 @@ public class ControllerNew {
 				newReferences.add(item);
 			}
 		}
-		
+
+		logger.info("ControllerNew.addMultipleReferences() - Added {}", newReferences);
+
 		if(newReferences.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicates found");
         }else {
         	return ResponseEntity.ok("References added successfully!" + newReferences.toString());
         }
-		
         
 	}
 }
