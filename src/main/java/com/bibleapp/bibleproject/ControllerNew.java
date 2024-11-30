@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,9 @@ public class ControllerNew {
 	Logger logger = LoggerFactory.getLogger(ControllerNew.class);
 	
 	private List<Reference> referenceList = new ArrayList<>();
+
+	@Value("${bible-app.key}")
+	private String appKey;
 	
 	@Autowired
 	private ReadJson readjson;
@@ -57,7 +61,8 @@ public class ControllerNew {
 	private boolean isValidKey(String key) {
 	    // Implement your key validation logic here (e.g., check against a database)
 	    // This is a placeholder for your actual validation
-	    return key.equals("xAsqw12"); // Replace with your actual validation logic
+		System.out.println(appKey);
+	    return key.equals(appKey); // Replace with your actual validation logic
 	}
 	
 	private boolean isExisting(Reference reference) {
