@@ -1,14 +1,26 @@
-FROM eclipse-temurin:17
+# FROM eclipse-temurin:17
 
-LABEL maintainer="sam.ashray1@gmail.com"
+# LABEL maintainer="sam.ashray1@gmail.com"
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY src/main/resources/static/bible-project-0.0.1-SNAPSHOT.jar /app/bible-project.jar
-COPY src/main/resources/static/en_kjv.json /app/en_kjv.json
+# COPY src/main/resources/static/bible-project-0.0.1-SNAPSHOT.jar /app/bible-project.jar
+# COPY src/main/resources/static/en_kjv.json /app/en_kjv.json
 
-# ENV MY_APP=xAsqw12
+# # ENV MY_APP=xAsqw12
 
+# EXPOSE 8080
+
+# ENTRYPOINT ["java", "-jar", "bible-project.jar"]
+
+FROM adoptopenjdk/openjdk11 
+      
 EXPOSE 8080
+ 
+ENV APP_HOME /usr/src/app
 
-ENTRYPOINT ["java", "-jar", "bible-project.jar"]
+COPY target/*.jar $APP_HOME/app.jar
+
+WORKDIR $APP_HOME
+
+CMD ["java", "-jar", "app.jar"]
