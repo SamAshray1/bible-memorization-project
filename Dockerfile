@@ -13,7 +13,7 @@
 
 # ENTRYPOINT ["java", "-jar", "bible-project.jar"]
 
-FROM adoptopenjdk/openjdk11 
+FROM adoptopenjdk/openjdk17
       
 EXPOSE 8080
  
