@@ -1,4 +1,4 @@
-# FROM eclipse-temurin:17
+FROM eclipse-temurin:17
 
 # LABEL maintainer="sam.ashray1@gmail.com"
 
@@ -13,7 +13,7 @@
 
 # ENTRYPOINT ["java", "-jar", "bible-project.jar"]
 
-FROM adoptopenjdk/openjdk17
+# FROM adoptopenjdk/openjdk17
       
 EXPOSE 8080
  
